@@ -1,0 +1,165 @@
+[gd_scene load_steps=13 format=3 uid="uid://cor5c0sgetfj5"]
+
+[ext_resource type="Texture2D" uid="uid://c6tovbc4oms6x" path="res://bird/base_bird.png" id="1_7k2hk"]
+[ext_resource type="Script" uid="uid://dq44kvfu75ywe" path="res://bird/bird.gd" id="1_qlr2y"]
+[ext_resource type="Script" uid="uid://dvo58w7myke5d" path="res://fsm/state_machine.gd" id="3_leygl"]
+[ext_resource type="Script" uid="uid://b0tw7768dgc65" path="res://bird/state/idle.gd" id="4_rjgom"]
+[ext_resource type="Script" uid="uid://q5rv0kgsmv4c" path="res://bird/state/flap.gd" id="5_rjgom"]
+[ext_resource type="Script" uid="uid://behobex8qrf4e" path="res://bird/state/dead.gd" id="6_gyfb1"]
+
+[sub_resource type="Animation" id="Animation_ot1l3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5708]
+}
+
+[sub_resource type="Animation" id="Animation_jwrbr"]
+resource_name = "dead"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5708]
+}
+
+[sub_resource type="Animation" id="Animation_qlr2y"]
+resource_name = "flap"
+length = 0.533337
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.424744),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_leygl"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_leygl"]
+_data = {
+&"RESET": SubResource("Animation_ot1l3"),
+&"dead": SubResource("Animation_jwrbr"),
+&"flap": SubResource("Animation_qlr2y"),
+&"idle": SubResource("Animation_leygl")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rjgom"]
+radius = 19.4165
+
+[node name="Bird" type="CharacterBody2D"]
+position = Vector2(86, 92)
+script = ExtResource("1_qlr2y")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_leygl")
+}
+autoplay = "flap"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(7, 21)
+rotation = 1.5708
+texture = ExtResource("1_7k2hk")
+flip_h = true
+hframes = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(6, 11)
+shape = SubResource("CircleShape2D_rjgom")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_leygl")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://dvo58w7myke5d"
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_rjgom")
+
+[node name="Flap" type="Node" parent="StateMachine"]
+script = ExtResource("5_rjgom")
+
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource("6_gyfb1")

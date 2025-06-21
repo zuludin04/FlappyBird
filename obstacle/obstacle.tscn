@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjohvvl0p85g8"]
+
+[ext_resource type="Script" uid="uid://duielc1ne2uks" path="res://obstacle/obstacle.gd" id="1_qlgnj"]
+[ext_resource type="PackedScene" uid="uid://cecdyvppsa6kr" path="res://obstacle/pillar.tscn" id="2_qlgnj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qlgnj"]
+size = Vector2(10, 198)
+
+[node name="Obstacle" type="Node2D"]
+script = ExtResource("1_qlgnj")
+
+[node name="TopPillar" parent="." instance=ExtResource("2_qlgnj")]
+position = Vector2(164, -14)
+
+[node name="BottomPillar" parent="." instance=ExtResource("2_qlgnj")]
+position = Vector2(164, 317)
+
+[node name="ScoreArea" type="Area2D" parent="."]
+position = Vector2(163, 121)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreArea"]
+shape = SubResource("RectangleShape2D_qlgnj")
+
+[connection signal="body_entered" from="ScoreArea" to="." method="_on_score_area_body_entered"]

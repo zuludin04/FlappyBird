@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2uuuijlnukvn"]
+
+[ext_resource type="PackedScene" uid="uid://bbbd4ew7n4op" path="res://background/parallax_background.tscn" id="1_sdqw3"]
+[ext_resource type="PackedScene" uid="uid://ckxr3g22k71ko" path="res://obstacle/spawn_obstacle.tscn" id="3_sdqw3"]
+[ext_resource type="PackedScene" uid="uid://cor5c0sgetfj5" path="res://bird/bird.tscn" id="4_siabp"]
+[ext_resource type="PackedScene" uid="uid://t7iig65tx3bo" path="res://game_menu.tscn" id="4_us8ym"]
+
+[node name="FlappyWorld" type="Node"]
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("1_sdqw3")]
+
+[node name="Bird" parent="." instance=ExtResource("4_siabp")]
+position = Vector2(62, 123)
+
+[node name="Camera2D" type="Camera2D" parent="Bird"]
+position = Vector2(258, 38)
+limit_top = 10
+limit_bottom = 180
+limit_smoothed = true
+
+[node name="SpawnObstacle" parent="Bird/Camera2D" instance=ExtResource("3_sdqw3")]
+visible = false
+
+[node name="Obstacles" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="GameMenu" parent="." instance=ExtResource("4_us8ym")]

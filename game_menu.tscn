@@ -1,0 +1,186 @@
+[gd_scene load_steps=9 format=3 uid="uid://t7iig65tx3bo"]
+
+[ext_resource type="FontFile" uid="uid://djns6dmpvhqr3" path="res://menu/DungeonFont.ttf" id="1_jowre"]
+[ext_resource type="Script" uid="uid://b2c8pmldmgtt6" path="res://menu/game_menu.gd" id="1_rjxss"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rjxss"]
+font = ExtResource("1_jowre")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_jprcw"]
+font = ExtResource("1_jowre")
+
+[sub_resource type="LabelSettings" id="LabelSettings_5rxej"]
+font = ExtResource("1_jowre")
+
+[sub_resource type="Animation" id="Animation_rjxss"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StartUp:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jowre"]
+resource_name = "hide_startup"
+length = 1.5
+step = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StartUp:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jprcw"]
+_data = {
+&"RESET": SubResource("Animation_rjxss"),
+&"hide_startup": SubResource("Animation_jowre")
+}
+
+[node name="GameMenu" type="CanvasLayer"]
+script = ExtResource("1_rjxss")
+
+[node name="StartUp" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="StartUp"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.0862745)
+
+[node name="Message" type="Label" parent="StartUp"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.357
+anchor_top = 0.319
+anchor_right = 0.643
+anchor_bottom = 0.5
+offset_left = 0.019989
+offset_top = -0.0800018
+offset_right = -0.0200195
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Help Hotwig
+deliver all the mails"
+label_settings = SubResource("LabelSettings_rjxss")
+horizontal_alignment = 1
+
+[node name="Start" type="Label" parent="StartUp"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.437
+anchor_top = 0.756
+anchor_right = 0.563
+anchor_bottom = 0.828
+offset_left = -0.179993
+offset_top = -44.92
+offset_right = 0.179993
+offset_bottom = -44.96
+grow_horizontal = 2
+grow_vertical = 0
+text = "Click to Start"
+label_settings = SubResource("LabelSettings_jprcw")
+
+[node name="Score" type="Label" parent="."]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 17.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+text = "10"
+label_settings = SubResource("LabelSettings_5rxej")
+horizontal_alignment = 1
+
+[node name="GameOver" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.239216, 0.239216, 0.239216, 0.541176)
+
+[node name="Label" type="Label" parent="GameOver"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.428125
+anchor_top = 0.090625
+anchor_right = 0.571875
+anchor_bottom = 0.1625
+grow_horizontal = 2
+text = "GAME OVER"
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOver"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.449219
+anchor_top = 0.464063
+anchor_right = 0.550781
+anchor_bottom = 0.535937
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="GameOver/HBoxContainer"]
+layout_mode = 2
+text = "SCORE"
+
+[node name="Label2" type="Label" parent="GameOver/HBoxContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="RestartButton" type="Button" parent="GameOver"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.441406
+anchor_top = 0.7
+anchor_right = 0.558594
+anchor_bottom = 0.796875
+grow_horizontal = 2
+grow_vertical = 0
+text = "RESTART"
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_jprcw")
+}
