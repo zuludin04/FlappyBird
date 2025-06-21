@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bbbd4ew7n4op" path="res://background/parallax_background.tscn" id="1_sdqw3"]
 [ext_resource type="PackedScene" uid="uid://ckxr3g22k71ko" path="res://obstacle/spawn_obstacle.tscn" id="3_sdqw3"]
 [ext_resource type="PackedScene" uid="uid://cor5c0sgetfj5" path="res://bird/bird.tscn" id="4_siabp"]
-[ext_resource type="PackedScene" uid="uid://t7iig65tx3bo" path="res://game_menu.tscn" id="4_us8ym"]
+[ext_resource type="PackedScene" uid="uid://t7iig65tx3bo" path="res://menu/game_menu.tscn" id="4_us8ym"]
 
 [node name="FlappyWorld" type="Node"]
 
