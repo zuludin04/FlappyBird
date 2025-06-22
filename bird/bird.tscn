@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cor5c0sgetfj5"]
+[gd_scene load_steps=14 format=3 uid="uid://cor5c0sgetfj5"]
 
 [ext_resource type="Texture2D" uid="uid://c6tovbc4oms6x" path="res://bird/base_bird.png" id="1_7k2hk"]
 [ext_resource type="Script" uid="uid://dq44kvfu75ywe" path="res://bird/bird.gd" id="1_qlr2y"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://b0tw7768dgc65" path="res://bird/state/idle.gd" id="4_rjgom"]
 [ext_resource type="Script" uid="uid://q5rv0kgsmv4c" path="res://bird/state/flap.gd" id="5_rjgom"]
 [ext_resource type="Script" uid="uid://behobex8qrf4e" path="res://bird/state/dead.gd" id="6_gyfb1"]
+[ext_resource type="Script" uid="uid://cs3brld6l3cwy" path="res://bird/state/speed.gd" id="7_jwrbr"]
 
 [sub_resource type="Animation" id="Animation_ot1l3"]
 length = 0.001
@@ -163,3 +164,11 @@ script = ExtResource("5_rjgom")
 
 [node name="Dead" type="Node" parent="StateMachine"]
 script = ExtResource("6_gyfb1")
+
+[node name="Speed" type="Node" parent="StateMachine"]
+script = ExtResource("7_jwrbr")
+
+[node name="Timer" type="Timer" parent="StateMachine/Speed"]
+one_shot = true
+
+[connection signal="timeout" from="StateMachine/Speed/Timer" to="StateMachine/Speed" method="_on_timer_timeout"]

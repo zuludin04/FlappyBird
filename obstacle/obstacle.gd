@@ -1,5 +1,14 @@
-extends Node2D
+class_name Obstacle extends Node2D
 
-func _on_score_area_body_entered(body: Node2D) -> void:
+@onready var mail: Node2D = $Mail
+
+var show_mail: bool
+
+func _ready() -> void:
+	mail.visible = show_mail
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is Bird:
-		Events.track_score.emit()
+		if mail.visible:
+			Events.track_score.emit()
+		mail.visible = false
