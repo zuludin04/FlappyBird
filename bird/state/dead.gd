@@ -4,6 +4,7 @@ var animation: AnimationPlayer
 var gravity = 600
 
 func enter() -> void:
+	$DeadFsx.play()
 	animation = owner.get_node(^"AnimationPlayer")
 	animation.play("dead")
 	Events.game_over.emit()

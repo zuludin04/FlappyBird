@@ -1,12 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://cor5c0sgetfj5"]
+[gd_scene load_steps=16 format=3 uid="uid://cor5c0sgetfj5"]
 
 [ext_resource type="Texture2D" uid="uid://c6tovbc4oms6x" path="res://bird/base_bird.png" id="1_7k2hk"]
 [ext_resource type="Script" uid="uid://dq44kvfu75ywe" path="res://bird/bird.gd" id="1_qlr2y"]
 [ext_resource type="Script" uid="uid://dvo58w7myke5d" path="res://fsm/state_machine.gd" id="3_leygl"]
 [ext_resource type="Script" uid="uid://b0tw7768dgc65" path="res://bird/state/idle.gd" id="4_rjgom"]
 [ext_resource type="Script" uid="uid://q5rv0kgsmv4c" path="res://bird/state/flap.gd" id="5_rjgom"]
+[ext_resource type="AudioStream" uid="uid://cmb7c65kq8bfo" path="res://bird/sounds/woosh1.ogg" id="6_bv0mt"]
 [ext_resource type="Script" uid="uid://behobex8qrf4e" path="res://bird/state/dead.gd" id="6_gyfb1"]
 [ext_resource type="Script" uid="uid://cs3brld6l3cwy" path="res://bird/state/speed.gd" id="7_jwrbr"]
+[ext_resource type="AudioStream" uid="uid://wxcl8jrwcy6t" path="res://bird/sounds/impactMetal_heavy_000.ogg" id="8_4o1e2"]
 
 [sub_resource type="Animation" id="Animation_ot1l3"]
 length = 0.001
@@ -162,8 +164,14 @@ script = ExtResource("4_rjgom")
 [node name="Flap" type="Node" parent="StateMachine"]
 script = ExtResource("5_rjgom")
 
+[node name="FlapFsx" type="AudioStreamPlayer2D" parent="StateMachine/Flap"]
+stream = ExtResource("6_bv0mt")
+
 [node name="Dead" type="Node" parent="StateMachine"]
 script = ExtResource("6_gyfb1")
+
+[node name="DeadFsx" type="AudioStreamPlayer2D" parent="StateMachine/Dead"]
+stream = ExtResource("8_4o1e2")
 
 [node name="Speed" type="Node" parent="StateMachine"]
 script = ExtResource("7_jwrbr")
