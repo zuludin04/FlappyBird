@@ -164,13 +164,13 @@ script = ExtResource("4_rjgom")
 [node name="Flap" type="Node" parent="StateMachine"]
 script = ExtResource("5_rjgom")
 
-[node name="FlapFsx" type="AudioStreamPlayer2D" parent="StateMachine/Flap"]
+[node name="FlapSfx" type="AudioStreamPlayer" parent="StateMachine/Flap"]
 stream = ExtResource("6_bv0mt")
 
 [node name="Dead" type="Node" parent="StateMachine"]
 script = ExtResource("6_gyfb1")
 
-[node name="DeadFsx" type="AudioStreamPlayer2D" parent="StateMachine/Dead"]
+[node name="DeadFsx" type="AudioStreamPlayer" parent="StateMachine/Dead"]
 stream = ExtResource("8_4o1e2")
 
 [node name="Speed" type="Node" parent="StateMachine"]

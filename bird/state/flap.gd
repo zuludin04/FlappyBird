@@ -15,7 +15,7 @@ func process_physics(delta: float) -> void:
 
 func input_handler(event: InputEvent) -> void:
 	if event.is_action_pressed("flap"):
-		$FlapFsx.play()
+		$FlapSfx.play()
 		owner.velocity.y = -230.0
 	if event.is_action_pressed("speed"):
 		transitioned.emit(self, "speed")
